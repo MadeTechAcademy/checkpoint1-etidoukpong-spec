@@ -16,3 +16,12 @@ def test_list_items_are_duties():
     assert monitor == 0
 
 # check all duties are there
+def test_all_duties_are_listed():
+    number = 1
+    monitor = 0
+    for duty in list_of_duties:
+        if str(number) not in duty[5:7]:
+            monitor += 1 
+        number += 1
+        continue
+    assert monitor == 0
