@@ -1,4 +1,4 @@
-from themes import x2
+from themes import list_of_duties
 """
 Finished product: write a program that would display on the screen all the duties in this apprenticeship. 
 """
@@ -6,6 +6,13 @@ Finished product: write a program that would display on the screen all the dutie
 # check that the full list is displayed
 def test_full_list_is_displayed():
     number_of_duties = 13
-    assert len(x2) == number_of_duties
+    assert len(list_of_duties) == number_of_duties
 
+# check all items are duties
+def test_list_items_are_duties():
+    monitor = 0
+    for duty in list_of_duties:
+        monitor += duty.rfind("Duty")
+    assert monitor == 0
 
+# check all duties are there
