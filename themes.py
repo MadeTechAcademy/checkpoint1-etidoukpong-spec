@@ -13,6 +13,19 @@ list_of_duties = [
     "Duty 13 Accept ownership of changes; embody the DevOps culture of 'you build it, you run it', with a relentless focus on the user experience."
 ]
 
+def create_html():
+    try:
+        page = open("duties.html")
+    except FileNotFoundError:
+        with open("duties.html", "w+") as page:
+            page.write('New page')
+            page.close()
+            print('Page created')
+    else:
+        page.close()
+        print('File already exists')
+
+
 def list_duties():
     for duty in list_of_duties:
         print("{0}\n".format(duty))
@@ -21,7 +34,10 @@ if __name__=="__main__":
     menu_item = input("""
     Welcome to apprentice themes!\n
     Press (1) to list all the duties\n
+    Press (2) to list all the duties in duties.html\n
     Enter your choice:
     """)
     if menu_item == '1':
         list_duties()
+    if menu_item == '2':
+        create_html()
