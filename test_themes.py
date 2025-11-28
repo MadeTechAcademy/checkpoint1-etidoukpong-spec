@@ -1,27 +1,26 @@
-from themes import list_of_duties
+from themes import list_of_duties, Duty
+from requests_html import HTML
+import re
 
 """
 Finished product: write a program that would display on the screen all the duties in this apprenticeship. 
 """
-def test_full_list_is_displayed():
+
+# TODO: Use RE groups and Match to check that the number group for each duty contans a unique number.
+
+def test_correct_number_of_duties_are_listed():
     number_of_duties = 13
     assert len(list_of_duties) == number_of_duties
 
 def test_list_items_are_duties():
-    monitor = 0
     for duty in list_of_duties:
-        monitor += duty.rfind("Duty")
-    assert monitor == 0
+        assert isinstance(duty, Duty)
 
-def test_all_duties_are_listed():
-    duty_number = 1
-    monitor = 0
+def test_unique_duties_are_listed():
+    hashes = []
     for duty in list_of_duties:
-        duty_number_index = duty[5:7]
-        if str(duty_number) not in duty_number_index:
-            monitor += 1 
-        duty_number += 1
-    assert monitor == 0
+        hashes.append(duty.__hash__())
+    assert len(list_of_duties) == len(set(hashes))
 
 def test_html_file_is_created():
     try:
@@ -29,4 +28,9 @@ def test_html_file_is_created():
     except FileNotFoundError:
         assert False
 
-# TODO: test html file displays duties
+def test_html_file_displays_duties():
+    with open("duties.html") as page:
+        source = page.read()
+        html = HTML(html=source)
+    for duty in list_of_duties:
+        assert duty.text in html.text
